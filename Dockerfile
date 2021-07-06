@@ -41,9 +41,7 @@ RUN git clone \
     composer install && \
     chown -R www-data:www-data .
 
-RUN sed -i 's|Listen 80|Listen 8080|' /etc/apache2/ports.conf && \
-    sed -i 's|*:80|*:8080|' /etc/apache2/sites-enabled/000-default.conf && \
-    sed -i '/\/VirtualHost.*/i MARKER' /etc/apache2/sites-enabled/000-default.conf && \
+RUN sed -i '/\/VirtualHost.*/i MARKER' /etc/apache2/sites-enabled/000-default.conf && \
     echo " \
     <Directory \"/var/www/html\">\n \
         Options FollowSymLinks \n \
