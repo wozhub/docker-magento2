@@ -17,8 +17,11 @@ RUN apt-get update && \
         | php -- --install-dir=/usr/bin --filename=composer \
 
 # Build required extensions
-RUN C_INCLUDE_PATH=/usr/include:/usr/local/include \
-    docker-php-ext-configure gd --with-freetype-dir --with-jpeg-dir && \
+ENV C_INCLUDE_PATH=/usr/lib/x86_64-linux-gnu
+RUN docker-php-ext-configure gd \
+        --with-freetype-dir="${C_INCLUDE_PATH}" \
+        --with-jpeg-dir="${C_INCLUDE_PATH}" \
+        && \
     docker-php-ext-install -j$(nproc) \
         bcmath \
         gd \
